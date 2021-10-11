@@ -17,10 +17,10 @@ app.listen(port, () => {
 //Conexion a BD
 //mongodb+srv://fernando:<password>@cluster0.tk4g5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 //mongodb://fernando:<password>@cluster0-shard-00-00.tk4g5.mongodb.net:27017,cluster0-shard-00-01.tk4g5.mongodb.net:27017,cluster0-shard-00-02.tk4g5.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-zppbt4-shard-0&authSource=admin&retryWrites=true&w=majority
-//const MongoClient = require('mongodb').MongoClient;
-//const url = "mongodb+srv://fernando:ChZIc4DP7SwmWED1@cluster0.tk4g5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb+srv://fernando:ChZIc4DP7SwmWED1@cluster0.tk4g5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 //const url = "mongodb://fernando:ChZIc4DP7SwmWED1@cluster0-shard-00-00.tk4g5.mongodb.net:27017,cluster0-shard-00-01.tk4g5.mongodb.net:27017,cluster0-shard-00-02.tk4g5.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-zppbt4-shard-0&authSource=admin&retryWrites=true&w=majority";
-//console.log("Conexion a BD")
+console.log("Conexion a BD")
 
 
 //Funciones Base de datos
@@ -39,7 +39,7 @@ function insertData(data){
 }*/
 
 //Seleccionar ultimo dato de la DB
-/*function selectData(){
+function selectData(){
     MongoClient.connect(url, function(err, db){
         if (err) throw err; 
         const dbo = db.db ('mydb'); 
@@ -51,12 +51,12 @@ function insertData(data){
             //Obtener datos del json
             /*console.log("Temperatura:" + doc.temperatura);
             console.log("Viento:" + doc.viento);
-            console.log("Temperatura:" + doc.humedad);//
+            console.log("Temperatura:" + doc.humedad);*/
             db.close();
         }); 
 
     });
-}*/
+}
 
 /*function datetime(data){
     fecha = new Date();
@@ -74,8 +74,8 @@ app.get('/',(req, res ) => {
 })
 
 app.get('/prueba',(req, res ) => {
-    //res.send(dato)
-    res.send("Esto es una prueba")
+    res.send(dato)
+    //res.send("Esto es una prueba")
 })
 
 
