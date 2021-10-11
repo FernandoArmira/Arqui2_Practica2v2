@@ -74,6 +74,7 @@ app.get('/',(req, res ) => {
 })
 
 app.get('/prueba',(req, res ) => {
+    selectData();
     res.send(dato)
     //res.send("Esto es una prueba")
 })
