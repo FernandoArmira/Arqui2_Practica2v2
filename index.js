@@ -73,6 +73,12 @@ app.get('/',(req, res ) => {
     res.send("Hola mundo")
 })
 
+app.get('/prueba',(req, res ) => {
+    //res.send(dato)
+    res.send("Esto es una prueba")
+})
+
+
 
 // Ingresar datos de prueba a la DB
 //prueba = "{\"sentado\": 0, \"peso\": 150}";
