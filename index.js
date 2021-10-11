@@ -39,7 +39,7 @@ function insertData(data){
 }*/
 
 //Seleccionar ultimo dato de la DB
-function selectData(){
+function selectData(req,res){
     MongoClient.connect(url, function(err, db){
         if (err) throw err; 
         const dbo = db.db ('mydb'); 
@@ -48,6 +48,7 @@ function selectData(){
             if(err) throw err;
             console.log(doc);
             dato = doc;
+            res.send(dato)
             //Obtener datos del json
             /*console.log("Temperatura:" + doc.temperatura);
             console.log("Viento:" + doc.viento);
@@ -74,8 +75,7 @@ app.get('/',(req, res ) => {
 })
 
 app.get('/prueba',(req, res ) => {
-    selectData();
-    res.send(dato)
+    selectData(req,res);
     //res.send("Esto es una prueba")
 })
 
