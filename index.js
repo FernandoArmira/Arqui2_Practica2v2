@@ -10,7 +10,7 @@ app.listen(port, () => {
     console.log('Servidor corriendo en el puerto', port)
 })
 
-//var dato = "";
+var dato = "";
 //var fecha = new Date();
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
