@@ -43,7 +43,7 @@ function selectData(req,res){
     MongoClient.connect(url, function(err, db){
         if (err) throw err; 
         const dbo = db.db ('mydb'); 
-        dbo.collection ('medidas').findOne({}, {sort:{$natural:-1}},function(err, doc){
+        dbo.collection ('medidaspr2').findOne({}, {sort:{$natural:-1}},function(err, doc){
         //dbo.collection ('medidas').findOne({Medida:'humedad'}, {sort:{$natural:-1}},function(err, doc){  //Filtrar datos por medida
             if(err) throw err;
             console.log(doc);
@@ -74,7 +74,7 @@ app.get('/',(req, res ) => {
     res.send("Hola mundo")
 })
 
-app.get('/prueba',(req, res ) => {
+app.get('/ultimodato',(req, res ) => {
     selectData(req,res);
     //res.send("Esto es una prueba")
 })
