@@ -61,6 +61,27 @@ function selectData(req,res){
     });
 }
 
+//Seleccionar ultimo dato de la DB de las medias
+function selectMedias(req,res){
+    MongoClient.connect(url, function(err, db){
+        if (err) throw err; 
+        const dbo = db.db ('mydb'); 
+        dbo.collection ('mediaspr2').findOne({}, {sort:{$natural:-1}},function(err, doc){
+        //dbo.collection ('medidas').findOne({Medida:'humedad'}, {sort:{$natural:-1}},function(err, doc){  //Filtrar datos por medida
+            if(err) throw err;
+            console.log(doc);
+            dato = doc;
+            res.send(dato)
+            //Obtener datos del json
+            /*console.log("Temperatura:" + doc.temperatura);
+            console.log("Viento:" + doc.viento);
+            console.log("Temperatura:" + doc.humedad);*/
+            db.close();
+        }); 
+
+    });
+}
+
 /*function datetime(data){
     fecha = new Date();
     const str = data.substring(0, data.length - 1);
@@ -81,6 +102,10 @@ app.get('/ultimodato',(req, res ) => {
     //res.send("Esto es una prueba")
 })
 
+app.get('/medias',(req, res ) => {
+    selectMedias(req,res);
+    //res.send("Esto es una prueba")
+})
 
 
 // Ingresar datos de prueba a la DB
