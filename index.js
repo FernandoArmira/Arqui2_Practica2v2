@@ -151,6 +151,75 @@ function statusData(req,res){
     });
 }
 
+//status del ultimo dato
+function statusUltimodato(req,res){
+    var temperatura = 0
+    var viento = 0
+    var humedad = 0
+    var luz = 0
+    var calor = ""
+    var velocidadviento = ""
+    var lluvia = ""
+    var visibilidad = ""
+    MongoClient.connect(url, function(err, db){
+        if (err) throw err; 
+        const dbo = db.db ('mydb'); 
+        dbo.collection ('medidaspr2').findOne({}, {sort:{$natural:-1}},function(err, doc){
+        //dbo.collection ('medidas').findOne({Medida:'humedad'}, {sort:{$natural:-1}},function(err, doc){  //Filtrar datos por medida
+            if(err) throw err;
+            console.log(doc);
+            //dato = doc;
+            temperatura = doc.mediatemperatura
+            viento = doc.mediaviento
+            humedad = doc.mediahumedad
+            luz = doc.medialuz
+            console.log(temperatura)
+            console.log(viento)
+            console.log(humedad)
+            console.log(luz)
+
+            if(viento >= 0 &&  viento <= 20){
+                velocidadviento = "Normal"
+            }else if (viento > 20 && viento <=40){
+                velocidadviento = "Moderado"
+            }else {
+                velocidadviento = "Alto"
+            }
+
+            if(luz >= 0 &&  luz <= 30){
+                visibilidad = "Nublado"
+            }else if (luz > 30 && luz <= 60){
+                visibilidad = "Medio nublado"
+            }else {
+                visibilidad = "Despejado"
+            }
+
+
+            if(humedad >= 75 ){
+                lluvia = "Con lluvia"
+            }else{
+                lluvia = "Sin lluvia"
+            }
+
+            if(temperatura >= 27 ){
+                calor = "Con calor"
+            }else{
+                calor = "Sin calor"
+            }
+
+            dato = "{\"Velocidadviento\": \"" + velocidadviento + "\", \"Visibilidad\": \"" + visibilidad + "\" , \"Lluvia\": \"" + lluvia + "\" , \"Calor\": \"" + calor + "\"}"
+
+            res.send(dato)
+            //Obtener datos del json
+            /*console.log("Temperatura:" + doc.temperatura);
+            console.log("Viento:" + doc.viento);
+            console.log("Temperatura:" + doc.humedad);*/
+            db.close();
+        }); 
+
+    });
+}
+
 /*function datetime(data){
     fecha = new Date();
     const str = data.substring(0, data.length - 1);
@@ -178,6 +247,11 @@ app.get('/medias',(req, res ) => {
 
 app.get('/status',(req, res ) => {
     statusData(req,res);
+    //res.send("Esto es una prueba")
+})
+
+app.get('/statusultimodato',(req, res ) => {
+    statusUltimodato(req,res);
     //res.send("Esto es una prueba")
 })
 
