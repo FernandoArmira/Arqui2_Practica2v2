@@ -82,6 +82,33 @@ function selectMedias(req,res){
     });
 }
 
+//status de todos los datos
+function statusData(req,res){
+    var temperatura = 0
+    var viento = 0
+    var humedad = 0
+    var luz = 0
+    MongoClient.connect(url, function(err, db){
+        if (err) throw err; 
+        const dbo = db.db ('mydb'); 
+        dbo.collection ('mediaspr2').findOne({}, {sort:{$natural:-1}},function(err, doc){
+        //dbo.collection ('medidas').findOne({Medida:'humedad'}, {sort:{$natural:-1}},function(err, doc){  //Filtrar datos por medida
+            if(err) throw err;
+            console.log(doc);
+            dato = doc;
+            temperatura = doc.mediatemperatura
+            console.log(temperatura)
+            res.send(dato)
+            //Obtener datos del json
+            /*console.log("Temperatura:" + doc.temperatura);
+            console.log("Viento:" + doc.viento);
+            console.log("Temperatura:" + doc.humedad);*/
+            db.close();
+        }); 
+
+    });
+}
+
 /*function datetime(data){
     fecha = new Date();
     const str = data.substring(0, data.length - 1);
@@ -104,6 +131,11 @@ app.get('/ultimodato',(req, res ) => {
 
 app.get('/medias',(req, res ) => {
     selectMedias(req,res);
+    //res.send("Esto es una prueba")
+})
+
+app.get('/status',(req, res ) => {
+    statusData(req,res);
     //res.send("Esto es una prueba")
 })
 
