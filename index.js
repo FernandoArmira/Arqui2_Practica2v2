@@ -156,7 +156,6 @@ function statusUltimodato(req,res){
     var temperatura = 0
     var viento = 0
     var humedad = 0
-    var luz = 0
     var calor = ""
     var velocidadviento = ""
     var lluvia = ""
@@ -172,11 +171,12 @@ function statusUltimodato(req,res){
             temperatura = doc.temperatura
             viento = doc.viento
             humedad = doc.humedad
-            luz = doc.luz
+            visibilidad = doc.estado
+
             console.log(temperatura)
             console.log(viento)
             console.log(humedad)
-            console.log(luz)
+            console.log(visibilidad)
 
             if(viento >= 0 &&  viento <= 20){
                 velocidadviento = "Normal"
@@ -185,16 +185,6 @@ function statusUltimodato(req,res){
             }else {
                 velocidadviento = "Alto"
             }
-
-            if(luz >= 0 &&  luz <= 30){
-                visibilidad = "Nublado"
-            }else if (luz > 30 && luz <= 60){
-                visibilidad = "Medio nublado"
-            }else {
-                visibilidad = "Despejado"
-            }
-
-
             if(humedad >= 75 ){
                 lluvia = "Con lluvia"
             }else{
