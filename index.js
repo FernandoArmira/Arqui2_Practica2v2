@@ -169,10 +169,10 @@ function statusUltimodato(req,res){
             if(err) throw err;
             console.log(doc);
             //dato = doc;
-            temperatura = doc.mediatemperatura
-            viento = doc.mediaviento
-            humedad = doc.mediahumedad
-            luz = doc.medialuz
+            temperatura = doc.temperatura
+            viento = doc.viento
+            humedad = doc.humedad
+            luz = doc.luz
             console.log(temperatura)
             console.log(viento)
             console.log(humedad)
